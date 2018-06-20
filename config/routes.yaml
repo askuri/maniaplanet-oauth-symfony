@@ -1,0 +1,25 @@
+homepage:
+    path: /
+    controller: App\Controller\HomeController::show
+    
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::show
+    
+login:
+    path: /login
+    controller: App\Security\OAuth2\ManiaplanetAuthenticator::start
+
+logout:
+    path: /logout
+    # no controller needed
+
+# login route should redirect the user here
+connect_maniaplanet:
+    path: /connect/maniaplanet
+    controller: App\Controller\ManiaplanetController::connectAction
+
+# shown after the login process finished
+connect_maniaplanet_finish:
+    path: /connect/maniaplanet/finish
+    controller: App\Controller\ManiaplanetController::finish

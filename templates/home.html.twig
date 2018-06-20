@@ -1,0 +1,10 @@
+{# templates/home.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}MP OAuth example{% endblock %}
+
+{% block body %}
+    {% if login_finished is defined %}
+        <p>Successfully logged in</p>
+    {% endif %}
+{% endblock %}

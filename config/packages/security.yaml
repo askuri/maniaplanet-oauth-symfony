@@ -1,0 +1,26 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # in_memory: { memory: ~ }
+        default_provider:
+            entity: { class: App\Entity\ManiaplanetUser }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            logout:
+                path:   /logout
+                target: /
+            
+            guard:
+                authenticators:
+                    - App\Security\OAuth2\ManiaplanetAuthenticator
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }

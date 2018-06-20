@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {# HEADER #}
+        <h1>MP OAuth example</h1>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p>Username: {{ app.user.username }}</p>
+            <a href="{{logout_path(key = null)}}">Logout</a>
+        {% else%}
+            <p>Not logged in</p>
+        {% endif %}
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
