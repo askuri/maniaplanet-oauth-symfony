@@ -11,10 +11,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ManiaplanetUserRepository")
+ * @ORM\Table(name="maniaplanet_user", 
+ *    uniqueConstraints={
+ *        @UniqueConstraint(name="login", 
+ *            columns={"login"})
+ *    }
+ * )
  */
 class ManiaplanetUser implements UserInterface, \Serializable
 {
@@ -39,6 +46,11 @@ class ManiaplanetUser implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
     
     public function getUsername()
     {
@@ -48,7 +60,7 @@ class ManiaplanetUser implements UserInterface, \Serializable
     public function getRoles()
     {
         //return $this->roles;
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
     public function getSalt()
@@ -128,6 +140,18 @@ class ManiaplanetUser implements UserInterface, \Serializable
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
